@@ -3,6 +3,7 @@ package workshop05code;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 //Included for the logging exercise
@@ -55,10 +56,21 @@ public class App {
         try (BufferedReader br = new BufferedReader(new FileReader("resources/data.txt"))) {
             String line;
             int i = 1;
+            ArrayList<String> ignoredWords = new ArrayList();
+
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
-                wordleDatabaseConnection.addValidWord(i, line);
+                if (line.matches("[a-z]{4}")){
+                    wordleDatabaseConnection.addValidWord(i, line);
+                }
+                else{
+                    ignoredWords.add(line);
+                }
                 i++;
+            }
+
+            for (String ignoredWord : ignoredWords) {
+                System.out.println("The word '" + ignoredWord + "' was not added...");
             }
 
         } catch (IOException e) {
