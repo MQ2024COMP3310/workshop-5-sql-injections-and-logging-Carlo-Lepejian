@@ -75,7 +75,7 @@ public class App {
 
             while (!guess.equals("q")) {
 
-                if (guess.matches("[a-z]")){
+                if (guess.matches("[a-z]{4}")){
                     System.out.println("You've guessed '" + guess+"'.");
 
                     if (wordleDatabaseConnection.isValidWord(guess)) { 
