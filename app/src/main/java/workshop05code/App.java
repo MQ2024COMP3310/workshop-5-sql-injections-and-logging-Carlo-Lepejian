@@ -39,15 +39,15 @@ public class App {
 
         wordleDatabaseConnection.createNewDatabase("words.db");
         if (wordleDatabaseConnection.checkIfConnectionDefined()) {
-            System.out.println("Wordle created and connected.");
+            logger.log(Level.INFO, "Wordle created and connected.");
         } else {
-            System.out.println("Not able to connect. Sorry!");
+            logger.log(Level.SEVERE, "Not able to connect. Sorry!");
             return;
         }
         if (wordleDatabaseConnection.createWordleTables()) {
-            System.out.println("Wordle structures in place.");
+            logger.log(Level.INFO, "Wordle structures in place.");
         } else {
-            System.out.println("Not able to launch. Sorry!");
+            logger.log(Level.SEVERE, "Not able to launch. Sorry!");
             return;
         }
 
@@ -70,12 +70,13 @@ public class App {
             }
 
             for (String ignoredWord : ignoredWords) {
-                System.out.println("The word '" + ignoredWord + "' was not added...");
+                String msg = "The word '" + ignoredWord + "' was not added...";
+                logger.log(Level.WARNING, msg);
             }
 
         } catch (IOException e) {
-            System.out.println("Not able to load . Sorry!");
-            System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Not able to load . Sorry!");
+            logger.log(Level.INFO, e.getMessage());
             return;
         }
 
@@ -98,6 +99,7 @@ public class App {
                 }
                 else{
                     System.out.println("Please enter a four character word with only lowercase letters");
+                    logger.log(Level.INFO, String.format("Invalid Input: %s", guess));
                 }
 
                 System.out.print("Enter a 4 letter word for a guess or q to quit: " );
